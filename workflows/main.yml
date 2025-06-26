@@ -1,0 +1,36 @@
+name: CI - Testes Coworking API
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+
+jobs:
+  run-tests:
+    name: Executar Testes Unitários
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Faz o checkout do repositório
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      # 2. Configura o Node.js na versão desejada
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # 3. Instala as dependências
+      - name: Instalar dependências
+        run: npm install
+
+      # 4. Compila o TypeScript
+      - name: Compilar TypeScript
+        run: npx tsc
+
+      # 5. Executa os testes
+      - name: Rodar testes unitários com Jest
+        run: npm test
