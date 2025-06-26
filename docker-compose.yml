@@ -1,0 +1,18 @@
+services:
+  coworking-api:
+    build: .
+    container_name: coworking-api
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npx tsc && node dist/index.js"
+
+  test:
+    build: .
+    container_name: coworking-api-test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm test"
