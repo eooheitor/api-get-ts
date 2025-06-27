@@ -23,14 +23,18 @@ jobs:
         with:
           node-version: '20'
 
-      # 3. Instala as dependências
+      # 3. Instala as dependências de forma limpa
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
-      # 4. Compila o TypeScript
+      # 4. Corrige permissões de execução dos binários Node (incluindo o Jest)
+      - name: Corrigir permissões de execução
+        run: chmod +x ./node_modules/.bin/*
+
+      # 5. Compila o TypeScript
       - name: Compilar TypeScript
         run: npx tsc
 
-      # 5. Executa os testes
+      # 6. Executa os testes unitários com Jest
       - name: Rodar testes unitários com Jest
-        run: npm test
+        run: npx jest
